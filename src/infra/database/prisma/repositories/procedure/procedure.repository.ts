@@ -3,7 +3,6 @@ import {
   PaymentStatus,
   Procedure,
 } from 'src/modules/procedures/entities/procedure.entity';
-import { getDate } from 'src/shared/get-date';
 import { PrismaService } from '../../prisma.service';
 import { ProcedureEntityToModelMapper } from './mappers/procedure-entity-to-model.mapper';
 import { ProcedureModelToEntityMapper } from './mappers/procedure-model-to-entity.mapper';
@@ -22,11 +21,12 @@ export class ProcedureRepository {
 
   public async findDailyProceduresByDoctor(
     doctorId: string,
+    procedureDate: string,
   ): Promise<Procedure[]> {
     const dailyProcedures = await this.prismaService.procedure.findMany({
       where: {
         doctorId,
-        procedureDate: { gte: new Date(getDate()) },
+        procedureDate: { gte: new Date(procedureDate) },
       },
     });
 

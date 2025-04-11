@@ -7,6 +7,7 @@ import { DeniedProceduresQueryDto } from './dto/get-denied-procedures-by-date.dt
 import { PaymentStatus } from './entities/procedure.entity';
 import { validateDates } from 'src/shared/validate-dates';
 import { DoctorRepository } from 'src/infra/database/prisma/repositories/doctor/doctor.repository';
+import { DailyProceduresQueryDto } from './dto/get-daily-procedures-by-doctor.dto';
 
 @Injectable()
 export class ProceduresService {
@@ -29,9 +30,9 @@ export class ProceduresService {
   }
 
   public async getDailyProceduresByDoctor(
-    proceduresByDoctorQueryDto: ProceduresByDoctorQueryDto,
+    dailyProceduresQueryDto: DailyProceduresQueryDto,
   ) {
-    const { doctorId } = proceduresByDoctorQueryDto;
+    const { doctorId, procedureDate } = dailyProceduresQueryDto;
 
     const doctor = await this.doctorRepository.findById(doctorId);
 
@@ -39,7 +40,10 @@ export class ProceduresService {
       throw new NotFoundException(`Doctor not found`);
     }
 
-    return this.procedureRepository.findDailyProceduresByDoctor(doctorId);
+    return this.procedureRepository.findDailyProceduresByDoctor(
+      doctorId,
+      procedureDate,
+    );
   }
 
   public async getDeniedProcedures(

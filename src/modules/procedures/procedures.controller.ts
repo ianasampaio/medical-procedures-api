@@ -1,9 +1,10 @@
 import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 import { ApiOperation } from '@nestjs/swagger';
 import { CreateProcedureDto } from './dto/create-procedure.dto';
-import { ProceduresService } from './procedures.service';
-import { ProceduresByDoctorQueryDto } from './dto/get-procedures-by-doctor.dto';
+import { DailyProceduresQueryDto } from './dto/get-daily-procedures-by-doctor.dto';
 import { DeniedProceduresQueryDto } from './dto/get-denied-procedures-by-date.dto';
+import { ProceduresByDoctorQueryDto } from './dto/get-procedures-by-doctor.dto';
+import { ProceduresService } from './procedures.service';
 
 @Controller('procedures')
 export class ProceduresController {
@@ -18,10 +19,10 @@ export class ProceduresController {
   @Get('/reports/daily')
   @ApiOperation({ summary: 'Generate a daily report of procedures by doctor' })
   getDailyProceduresByDoctor(
-    @Query() proceduresByDoctorQueryDto: ProceduresByDoctorQueryDto,
+    @Query() dailyProceduresQueryDto: DailyProceduresQueryDto,
   ) {
     return this.proceduresService.getDailyProceduresByDoctor(
-      proceduresByDoctorQueryDto,
+      dailyProceduresQueryDto,
     );
   }
 
