@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { ProcedureRepository } from 'src/infra/database/prisma/repositories/procedure/procedure.repository';
 import { UUIDGenerator } from 'src/shared/uuid-generator';
 import { CreateProcedureDto } from './dto/create-procedure.dto';
@@ -6,10 +6,14 @@ import { ProceduresByDoctorQueryDto } from './dto/get-procedures-by-doctor.dto';
 import { DeniedProceduresQueryDto } from './dto/get-denied-procedures-by-date.dto';
 import { PaymentStatus } from './entities/procedure.entity';
 import { validateDates } from 'src/shared/validate-dates';
+import { DoctorRepository } from 'src/infra/database/prisma/repositories/doctor/doctor.repository';
 
 @Injectable()
 export class ProceduresService {
-  constructor(private readonly procedureRepository: ProcedureRepository) {}
+  constructor(
+    private readonly procedureRepository: ProcedureRepository,
+    private readonly doctorRepository: DoctorRepository,
+  ) {}
 
   public async create(createProcedureDto: CreateProcedureDto) {
     const now = new Date();
@@ -29,6 +33,12 @@ export class ProceduresService {
   ) {
     const { doctorId } = proceduresByDoctorQueryDto;
 
+    const doctor = await this.doctorRepository.findById(doctorId);
+
+    if (!doctor) {
+      throw new NotFoundException(`Doctor not found`);
+    }
+
     return this.procedureRepository.findDailyProceduresByDoctor(doctorId);
   }
 
@@ -47,6 +57,12 @@ export class ProceduresService {
   ) {
     const { doctorId } = proceduresByDoctorQueryDto;
 
+    const doctor = await this.doctorRepository.findById(doctorId);
+
+    if (!doctor) {
+      throw new NotFoundException(`Doctor not found`);
+    }
+
     const procedures =
       await this.procedureRepository.findProceduresByDoctor(doctorId);
 
@@ -62,6 +78,14 @@ export class ProceduresService {
       .filter((procedure) => procedure.paymentStatus === PaymentStatus.DENIED)
       .reduce((acc, curr) => acc + curr.amount, 0);
 
-    return { totalPaid, totalPending, totalDenied, procedures };
+    const financialReport = {
+      doctor: doctor.name,
+      totalPaid,
+      totalPending,
+      totalDenied,
+      procedures,
+    };
+
+    return financialReport;
   }
 }
