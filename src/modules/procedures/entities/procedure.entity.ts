@@ -1,7 +1,7 @@
 export enum PaymentStatus {
   PAID = 'PAID',
   PENDING = 'PENDING',
-  DISPUTED = 'DISPUTED',
+  DENIED = 'DENIED',
 }
 
 export class Procedure {
