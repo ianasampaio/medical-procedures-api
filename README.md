@@ -1,99 +1,105 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# 🏥 API de Procedimentos Médicos
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Esta API foi desenvolvida para facilitar o gerenciamento de procedimentos médicos, previsões de pagamento e controle de glosas em clínicas e hospitais.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+Este projeto faz parte de um teste técnico com o objetivo de avaliar conhecimentos em desenvolvimento backend.
 
-## Description
+## 📚 Funcionalidades
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+- Cadastro de procedimentos médicos.
+- Relatório diário de procedimentos por médico.
+- Relatório de glosas por período.
+- Relatório financeiro por médico.
 
-## Project setup
+## 🚀 Tecnologias
 
-```bash
-$ npm install
-```
+- **Backend**: Node.js, NestJS, TypeScript
+- **Banco de dados**: PostgreSQL, Prisma ORM
+- **Testes**: Jest
+- **Documentação**: Swagger
+- Docker
 
-## Compile and run the project
+## 🐳 Rodando o projeto com Docker
+
+Para facilitar a configuração do ambiente, tudo já está pronto para subir com Docker!
+
+### Pré-requisitos
+
+- Docker instalado (Docker Engine + Docker Compose)
+
+### Comandos para rodar o projeto
+
+1. Clone o repositório
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+git clone https://github.com/ianasampaio/medical-procedures-api.git
 ```
 
-## Run tests
+2. Acesse a pasta
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+cd medical-procedures-api
 ```
 
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+3. Suba os containers
 
 ```bash
-$ npm install -g mau
-$ mau deploy
+docker-compose up --build
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+Isso irá:
 
-## Resources
+- Subir o banco de dados PostgreSQL
 
-Check out a few resources that may come in handy when working with NestJS:
+- Rodar as migrations do Prisma
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+- Executar o script de seed para popular dados iniciais
 
-## Support
+- Iniciar a aplicação NestJS
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+## 📑 Documentação Swagger
 
-## Stay in touch
+A documentação da API está disponível em:
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+```bash
+http://localhost:3000/api
+```
 
-## License
+## ⚠️ Tratamento de Erros e Exceções
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+A API utiliza os mecanismos nativos do **NestJS** para lidar com erros e exceções, garantindo respostas consistentes e claras para o cliente.
+
+- **Validation Errors**:
+  Ao receber dados em `DTOs`, usamos **class-validator** para validar campos (ex: campos obrigatórios, formatos corretos, valores permitidos). Se houver erro, o NestJS automaticamente retorna um `400 Bad Request` com a descrição dos problemas.
+- **Business Errors**:
+  Para regras de negócio, usamos exceções específicas como:
+  - `BadRequestException`: para dados inválidos (ex: startDate > endDate).
+  - `NotFoundException`: para recursos não encontrados (ex: Doctor not found).
+    Essas exceções são lançadas no **service layer**, e o NestJS encapsula e envia para o cliente no formato correto.
+- **Internal Server Errors**:
+  Qualquer erro inesperado que aconteça na aplicação (como falha no banco) será tratado por meio do `Exception Filters` padrão do NestJS, retornando um `500 Internal Server Error` controlado.
+
+## 🔒 Segurança dos Dados
+
+A API adota boas práticas de segurança para proteger os dados dos usuários:
+
+- **Validação de Entrada**:
+  Todos os dados recebidos dos clientes passam por validações para evitar ataques como SQL Injection e envio de payloads maliciosos.
+- **Tratamento de Erros Seguro**:
+  A API não expõe informações sensíveis nos erros. Mensagens genéricas são retornadas ao cliente.
+- **Uso do Prisma**:
+  Prisma ORM previne injeções SQL por padrão, pois todas as queries são parametrizadas.
+
+## 🧪 Testes Unitários
+
+Esta API conta com testes unitários implementados nos services, utilizando Jest como framework de testes.
+
+Para rodar os testes, utilize o comando:
+
+```bash
+npm run test
+```
+
+## 🧑‍💻 Sobre o desenvolvimento
+
+Durante o desenvolvimento, busquei criar uma base sólida que pudesse ser facilmente evoluída futuramente — como a adição de autenticação, autorização de usuários, ou novos relatórios.
