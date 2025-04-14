@@ -6,6 +6,7 @@ import {
 import { PrismaService } from '../../prisma.service';
 import { ProcedureEntityToModelMapper } from './mappers/procedure-entity-to-model.mapper';
 import { ProcedureModelToEntityMapper } from './mappers/procedure-model-to-entity.mapper';
+import { startOfDay, endOfDay } from 'date-fns';
 
 @Injectable()
 export class ProcedureRepository {
@@ -23,10 +24,15 @@ export class ProcedureRepository {
     doctorId: string,
     procedureDate: string,
   ): Promise<Procedure[]> {
+    const date = new Date(procedureDate);
+
     const dailyProcedures = await this.prismaService.procedure.findMany({
       where: {
         doctorId,
-        procedureDate: { gte: new Date(procedureDate) },
+        procedureDate: {
+          gte: startOfDay(date),
+          lte: endOfDay(date),
+        },
       },
     });
 
@@ -44,7 +50,10 @@ export class ProcedureRepository {
     const deniedProcedures = await this.prismaService.procedure.findMany({
       where: {
         paymentStatus: PaymentStatus.DENIED,
-        procedureDate: { gte: new Date(startDate), lte: new Date(endDate) },
+        procedureDate: {
+          gte: startOfDay(new Date(startDate)),
+          lte: endOfDay(new Date(endDate)),
+        },
       },
     });
 
